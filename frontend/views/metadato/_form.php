@@ -1,171 +1,347 @@
 <?php
 
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\depdrop\DepDrop;
+use yii\helpers\Url;
+use dosamigos\datepicker\DatePicker;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Metadato */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="metadato-form">
+<div class="container-fluid">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'N_PERIODO')->textInput() ?>
-
-    <?= $form->field($model, 'CVE_PROGRAMA')->textInput() ?>
-
-    <?= $form->field($model, 'FOLIO')->textInput() ?>
-
-    <?= $form->field($model, 'CVE_DEPENDENCIA')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'PRIMER_APELLIDO')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'SEGUNDO_APELLIDO')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRES')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRE_COMPLETO')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'FECHA_NACIMIENTO')->textInput() ?>
-
-    <?= $form->field($model, 'SEXO')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CURP')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'EDAD')->textInput() ?>
-
-    <?= $form->field($model, 'FOLIO_ID_OFICIAL')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'PRIMER_APELLIDO2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'SEGUNDO_APELLIDO2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRES2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRE_COMPLETO2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'FECHA_NACIMIENTO2')->textInput() ?>
-
-    <?= $form->field($model, 'SEXO2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CURP2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'EDAD2')->textInput() ?>
-
-    <?= $form->field($model, 'FOLIO_ID_OFICIAL2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'PRIMER_APELLIDO_N')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'SEGUNDO_APELLIDO_N')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRES_N')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRE_COMPLETO_N')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'FECHA_NACIMIENTO_N')->textInput() ?>
-
-    <?= $form->field($model, 'SEXO_N')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CURP_N')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'EDAD_N')->textInput() ?>
-
-    <?= $form->field($model, 'PRIMER_APELLIDO_N2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'SEGUNDO_APELLIDO_N2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRES_N2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NOMBRE_COMPLETO_N2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'FECHA_NACIMIENTO_N2')->textInput() ?>
-
-    <?= $form->field($model, 'SEXO_N2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CURP_N2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'EDAD_N2')->textInput() ?>
-
-    <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'LADA_TELEFONO')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'TELEFONO')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'LADA_FAX')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'FAX')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CALLE')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NUM_EXT')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'NUM_INT')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'MANZANA')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'LOTE')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CODIGO_POSTAL')->textInput() ?>
-
-    <?= $form->field($model, 'ENTRE_CALLE')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'Y_CALLE')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'OTRA_REFERENCIA')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'COLONIA')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'LOCALIDAD')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CVE_MUNICIPIO')->textInput() ?>
-
-    <?= $form->field($model, 'CVE_ENTIDAD_FEDERATIVA')->textInput() ?>
-
-    <?= $form->field($model, 'CVE_LOCALIDAD')->textInput() ?>
-
-    <?= $form->field($model, 'CVE_REGION')->textInput() ?>
-
-    <?= $form->field($model, 'AGEB')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'FECHA_REG')->textInput() ?>
-
-    <?= $form->field($model, 'USU')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'PW')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'IP')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'FECHA_M')->textInput() ?>
-
-    <?= $form->field($model, 'USU_M')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'PW_M')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'IP_M')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'STATUS_1')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'STATUS_2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'STATUS_3')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CARTA_1')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CARTA_2')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'CVE_CARGO1')->textInput() ?>
-
-    <?= $form->field($model, 'CVE_CARGO2')->textInput() ?>
-
-    <?= $form->field($model, 'OTRO1')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'OTRO2')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <div class="row">
+
+        <div class="alert alert-success">
+            <strong>A) DATOS DEL PADRE / MADRE O TUTOR(A)</strong>
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'PRIMER_APELLIDO')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEGUNDO_APELLIDO')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'NOMBRES')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'FECHA_NACIMIENTO')->widget(
+                        DatePicker::className(), [
+                            // inline too, not bad
+                            'inline' => false, 
+                            'language' => 'es', 
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
+                                'startDate' => '1910-01-01',
+                                'endDate' => '2003-01-01'
+                            ]
+                    ]);?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEXO')->radioList(['H' => 'Hombre', 'M' => 'Mujer']) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'CURP')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'FOLIO_ID_OFICIAL')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'CVE_CARGO1')->widget(Select2::classname(), [
+                        'data' => ArrayHelper::map(\common\models\Cargos::find()->all(),
+                            'CVE_CARGO', 'DESC_CARGO'),
+                        'options' => ['placeholder' => 'Selecciona un Cargo', 'CVE_CARGO' => 'DESC_CARGO'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="alert alert-success">
+            <strong>B) DATOS DEL PADRE / MADRE O TUTOR(A)</strong>
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'PRIMER_APELLIDO2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEGUNDO_APELLIDO2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'NOMBRES2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'FECHA_NACIMIENTO2')->widget(
+                        DatePicker::className(), [
+                            // inline too, not bad
+                            'inline' => false, 
+                            'language' => 'es', 
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
+                                'startDate' => '1910-01-01',
+                                'endDate' => '2003-01-01'
+                            ]
+                    ]);?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEXO2')->radioList(['H' => 'Hombre', 'M' => 'Mujer']) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                        <?= $form->field($model, 'CURP2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'FOLIO_ID_OFICIAL2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'CVE_CARGO2')->widget(Select2::classname(), [
+                        'data' => ArrayHelper::map(\common\models\Cargos::find()->all(),
+                            'CVE_CARGO', 'DESC_CARGO'),
+                        'options' => ['placeholder' => 'Selecciona un Cargo', 'CVE_CARGO' => 'DESC_CARGO'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="alert alert-success">
+            <strong>C) DATOS DEL NIÑO(A)</strong>
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'PRIMER_APELLIDO_N')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEGUNDO_APELLIDO_N')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'NOMBRES_N')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'FECHA_NACIMIENTO_N')->widget(
+                        DatePicker::className(), [
+                            // inline too, not bad
+                            'inline' => false, 
+                            'language' => 'es', 
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
+                                'startDate' => '1910-01-01',
+                                'endDate' => '2018-01-01'
+                            ]
+                    ]);?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEXO_N')->radioList(['H' => 'Hombre', 'M' => 'Mujer']) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'CURP_N')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="alert alert-success">
+            <strong>D) DATOS DEL NIÑO(A)</strong>
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'PRIMER_APELLIDO_N2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEGUNDO_APELLIDO_N2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'NOMBRES_N2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'FECHA_NACIMIENTO_N2')->widget(
+                        DatePicker::className(), [
+                            // inline too, not bad
+                            'inline' => false, 
+                            'language' => 'es', 
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
+                                'startDate' => '1910-01-01',
+                                'endDate' => '2018-01-01'
+                            ]
+                    ]);?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'SEXO_N2')->radioList(['H' => 'Hombre', 'M' => 'Mujer']) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'CURP_N2')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="alert alert-success">
+            <strong>E) DOMICILIO </strong>
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'CALLE')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'ENTRE_CALLE')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'Y_CALLE')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'OTRA_REFERENCIA')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'COLONIA')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'CODIGO_POSTAL')->textInput() ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'CVE_MUNICIPIO')->widget(Select2::classname(), [
+                        'data' => ArrayHelper::map(\common\models\Municipios::getMunOk(),
+                            'MUNICIPIOID', 'MUNICIPIONOMBRE'),
+                        'options' => ['placeholder' => 'Selecciona un Municipio', 'id' => 'Municipio'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <?= $form->field($model, 'CVE_LOCALIDAD')->textInput() ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'TELEFONO')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?= $form->field($model, 'FAX')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                        <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>
