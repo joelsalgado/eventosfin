@@ -2,12 +2,15 @@
 
 namespace frontend\controllers;
 
+use common\models\Localidades;
 use Yii;
 use common\models\Metadato;
 use common\models\MetadatoSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Request;
 
 /**
  * MetadatoController implements the CRUD actions for Metadato model.
@@ -65,8 +68,28 @@ class MetadatoController extends Controller
     {
         $model = new Metadato();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->FOLIO]);
+        if ($model->load(Yii::$app->request->post())) {
+            $request = New Request();
+            $user = Yii::$app->user->id;
+            $ip = $request->getUserIp();
+
+            $model->N_PERIODO = 2018;
+            $model->CVE_PROGRAMA = 221;
+            $model->CVE_DEPENDENCIA = '2150000000';
+
+            $model->NOMBRES = trim(strtoupper($model->NOMBRES));
+            $model->PRIMER_APELLIDO = trim(strtoupper($model->PRIMER_APELLIDO));
+            $model->SEGUNDO_APELLIDO = trim(strtoupper($model->SEGUNDO_APELLIDO));
+            $model->NOMBRE_COMPLETO = $model->PRIMER_APELLIDO.' '.$model->SEGUNDO_APELLIDO. ' '. $model->NOMBRES;
+
+
+            $model->USU = $user.'';
+            $model->IP = $ip;
+
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->FOLIO]);
+            }
+
         }
 
         return $this->render('create', [
@@ -120,5 +143,26 @@ class MetadatoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionLocalidades() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $out = Localidades::getLocs($cat_id);
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>$out]);
+                return;
+            }
+        }
+        echo Json::encode(  ['output'=>'', 'selected'=>'']);
     }
 }

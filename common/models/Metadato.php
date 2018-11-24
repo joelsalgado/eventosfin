@@ -91,7 +91,7 @@ class Metadato extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'metadato';
+        return 'metadato2';
     }
 
     /**
@@ -111,6 +111,13 @@ class Metadato extends \yii\db\ActiveRecord
             [['FOLIO_ID_OFICIAL', 'CURP2', 'FOLIO_ID_OFICIAL2', 'CURP_N', 'CURP_N2', 'LADA_TELEFONO', 'TELEFONO', 'LADA_FAX', 'FAX', 'AGEB'], 'string', 'max' => 30],
             [['NUM_EXT', 'NUM_INT', 'ENTRE_CALLE', 'Y_CALLE'], 'string', 'max' => 80],
             [['MANZANA', 'LOTE'], 'string', 'max' => 40],
+            [['PRIMER_APELLIDO','SEGUNDO_APELLIDO', 'NOMBRES'], 'match', 'pattern' => '/^[a-zñ\s]+$/i',
+                'message' => 'Sólo se aceptan letras sin acentos'],
+            [['TELEFONO','FAX'], 'match', 'pattern' => '/^[0-9+\s]+$/i', 'message' => 'Solo se aceptan números'],
+            [['CURP'], 'match', 'pattern' => '/[A-Z]{4}\d{6}[HM][A-Z]{2}[B-DF-HJ-NP-TV-Z]{3}[A-Z0-9][0-9]/', 'message' => 'Formato no valido'],
+            [['FECHA_NACIMIENTO'],'date', 'format'=>'yyyy-mm-dd', 'message' => 'Formato no valido'],
+            ['EMAIL','email', 'message' => 'Formato de correo incorrecto'],
+
         ];
     }
 
@@ -197,5 +204,10 @@ class Metadato extends \yii\db\ActiveRecord
             'OTRO1' => 'Otro1',
             'OTRO2' => 'Otro2',
         ];
+    }
+
+    public function getLoc()
+    {
+        return $this->hasOne(Localidades::className(), ['CVE_LOCALIDAD' => 'CVE_LOCALIDAD']);
     }
 }

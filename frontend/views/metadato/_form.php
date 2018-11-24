@@ -39,19 +39,21 @@ use kartik\select2\Select2;
                     <?= $form->field($model, 'NOMBRES')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
                     <?= $form->field($model, 'FECHA_NACIMIENTO')->widget(
                         DatePicker::className(), [
-                            // inline too, not bad
-                            'inline' => false, 
-                            'language' => 'es', 
-                            'clientOptions' => [
-                                'autoclose' => true,
-                                'format' => 'yyyy-mm-dd',
-                                'startDate' => '1910-01-01',
-                                'endDate' => '2003-01-01'
-                            ]
+                        // inline too, not bad
+                        'inline' => false,
+                        'language' => 'es',
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd',
+                            'startDate' => '1910-01-01',
+                            'endDate' => '2003-01-01'
+                        ]
                     ]);?>
                 </div>
             </div>
@@ -114,15 +116,15 @@ use kartik\select2\Select2;
                 <div class="form-group">
                     <?= $form->field($model, 'FECHA_NACIMIENTO2')->widget(
                         DatePicker::className(), [
-                            // inline too, not bad
-                            'inline' => false, 
-                            'language' => 'es', 
-                            'clientOptions' => [
-                                'autoclose' => true,
-                                'format' => 'yyyy-mm-dd',
-                                'startDate' => '1910-01-01',
-                                'endDate' => '2003-01-01'
-                            ]
+                        // inline too, not bad
+                        'inline' => false,
+                        'language' => 'es',
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd',
+                            'startDate' => '1910-01-01',
+                            'endDate' => '2003-01-01'
+                        ]
                     ]);?>
                 </div>
             </div>
@@ -133,7 +135,7 @@ use kartik\select2\Select2;
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                        <?= $form->field($model, 'CURP2')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'CURP2')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
@@ -185,15 +187,15 @@ use kartik\select2\Select2;
                 <div class="form-group">
                     <?= $form->field($model, 'FECHA_NACIMIENTO_N')->widget(
                         DatePicker::className(), [
-                            // inline too, not bad
-                            'inline' => false, 
-                            'language' => 'es', 
-                            'clientOptions' => [
-                                'autoclose' => true,
-                                'format' => 'yyyy-mm-dd',
-                                'startDate' => '1910-01-01',
-                                'endDate' => '2018-01-01'
-                            ]
+                        // inline too, not bad
+                        'inline' => false,
+                        'language' => 'es',
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd',
+                            'startDate' => '1910-01-01',
+                            'endDate' => '2018-01-01'
+                        ]
                     ]);?>
                 </div>
             </div>
@@ -236,15 +238,15 @@ use kartik\select2\Select2;
                 <div class="form-group">
                     <?= $form->field($model, 'FECHA_NACIMIENTO_N2')->widget(
                         DatePicker::className(), [
-                            // inline too, not bad
-                            'inline' => false, 
-                            'language' => 'es', 
-                            'clientOptions' => [
-                                'autoclose' => true,
-                                'format' => 'yyyy-mm-dd',
-                                'startDate' => '1910-01-01',
-                                'endDate' => '2018-01-01'
-                            ]
+                        // inline too, not bad
+                        'inline' => false,
+                        'language' => 'es',
+                        'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd',
+                            'startDate' => '1910-01-01',
+                            'endDate' => '2018-01-01'
+                        ]
                     ]);?>
                 </div>
             </div>
@@ -318,7 +320,30 @@ use kartik\select2\Select2;
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <?= $form->field($model, 'CVE_LOCALIDAD')->textInput() ?>
+                    <?=!$model->isNewRecord ? $form->field($model, 'CVE_LOCALIDAD')->widget(DepDrop::classname(), [
+                        'options' => ['id'=>'name'],
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'data'=>[ $model->CVE_LOCALIDAD => $model->loc->DESC_LOCALIDAD ],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'pluginOptions'=>[
+                            'depends'=>['Municipio'],
+                            'placeholder' => 'Selecciona una Localidad',
+                            'url' => Url::to(['metadato/localidades']),
+                        ]
+                    ]) :
+                        $form->field($model, 'CVE_LOCALIDAD')->widget(DepDrop::classname(), [
+                            'options' => ['id'=>'name'],
+                            'type'=>DepDrop::TYPE_SELECT2,
+                            'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                            'pluginOptions'=>[
+                                'depends'=>['Municipio'],
+                                'placeholder' => 'Selecciona una Localidad',
+                                'url' => Url::to(['metadato/localidades']),
+                            ]
+                        ])
+
+                    ?>
+
                 </div>
             </div>
         </div>
@@ -335,7 +360,7 @@ use kartik\select2\Select2;
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                        <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>

@@ -55,7 +55,7 @@ class Localidades extends \yii\db\ActiveRecord
             [['PTOT', 'PMAS'], 'string', 'max' => 7],
             [['D_CODIGO'], 'string', 'max' => 5],
             [['CVE_LOCALIDAD'], 'unique'],
-            [['CVE_MUNICIPIO'], 'exist', 'skipOnError' => true, 'targetClass' => CatMunicipiosSedesem::className(), 'targetAttribute' => ['CVE_MUNICIPIO' => 'MUNICIPIOID']],
+            [['CVE_MUNICIPIO'], 'exist', 'skipOnError' => true, 'targetClass' => Municipios::className(), 'targetAttribute' => ['CVE_MUNICIPIO' => 'MUNICIPIOID']],
         ];
     }
 
@@ -93,6 +93,21 @@ class Localidades extends \yii\db\ActiveRecord
      */
     public function getCVEMUNICIPIO()
     {
-        return $this->hasOne(CatMunicipiosSedesem::className(), ['MUNICIPIOID' => 'CVE_MUNICIPIO']);
+        return $this->hasOne(Municipios::className(), ['MUNICIPIOID' => 'CVE_MUNICIPIO']);
+    }
+
+    public static function getLocs($cat_id){
+
+        $sections = self::find()
+            ->select(['CVE_LOCALIDAD', 'DESC_LOCALIDAD'])
+            ->where(['CVE_MUNICIPIO'=> $cat_id])
+            ->asArray()
+            ->all();
+        $sec = [];
+        foreach ($sections as $value){
+            $sec[] = ["id"=> $value['CVE_LOCALIDAD'], "name"=>$value['DESC_LOCALIDAD']];
+        }
+
+        return $sec;
     }
 }
