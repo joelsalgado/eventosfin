@@ -270,6 +270,13 @@ use kartik\select2\Select2;
             <i class="fa fa-user" aria-hidden="true"></i>
         </div>
         <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <?= $form->field($model, 'STATUS_1')->radioList(['0' => 'Fin de Año', '1' => 'Reyes Magos']) ?>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <?= $form->field($model, 'CALLE')->textInput(['maxlength' => true]) ?>

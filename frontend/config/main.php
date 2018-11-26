@@ -11,6 +11,7 @@ return [
     'name' => 'EVENTOS',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'defaultRoute' => 'metadato',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'view' => [

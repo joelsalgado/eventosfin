@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use common\behaviors\AuthKeyBehavior;
 use common\models\Regiones;
+use common\models\RegionesSedesem;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 
@@ -98,6 +99,6 @@ class User extends \yii\db\ActiveRecord
 
     public function getRegion()
     {
-        return $this->hasMany(Regiones::className(), ['id' => 'region_id']);
+        return $this->hasMany(RegionesSedesem::className(), ['REGIONID' => 'region_id']);
     }
 }

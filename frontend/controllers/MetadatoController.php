@@ -3,14 +3,17 @@
 namespace frontend\controllers;
 
 use common\models\Localidades;
+use common\models\Municipios;
 use Yii;
 use common\models\Metadato;
 use common\models\MetadatoSearch;
+use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Request;
+use common\models\User as Usuarios;
 
 /**
  * MetadatoController implements the CRUD actions for Metadato model.
@@ -23,6 +26,21 @@ class MetadatoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            $valid_roles = [Usuarios::ROLE_ADMIN, Usuarios::ROLE_SUP];
+                            return Usuarios::roleInArray($valid_roles);
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -72,6 +90,9 @@ class MetadatoController extends Controller
             $request = New Request();
             $user = Yii::$app->user->id;
             $ip = $request->getUserIp();
+            $localidad  = Localidades::find()->where(['CVE_LOCALIDAD' => $model->CVE_LOCALIDAD])->one();
+            $municipio = Municipios::find()->where(['MUNICIPIOID' => $model->CVE_MUNICIPIO])->one();
+            $fecha = Yii::$app->formatter->asDatetime('now', 'yyyy-MM-dd H:i:s');
 
             $model->N_PERIODO = 2018;
             $model->CVE_PROGRAMA = 221;
@@ -81,13 +102,45 @@ class MetadatoController extends Controller
             $model->PRIMER_APELLIDO = trim(strtoupper($model->PRIMER_APELLIDO));
             $model->SEGUNDO_APELLIDO = trim(strtoupper($model->SEGUNDO_APELLIDO));
             $model->NOMBRE_COMPLETO = $model->PRIMER_APELLIDO.' '.$model->SEGUNDO_APELLIDO. ' '. $model->NOMBRES;
+            $model->CURP = trim(strtoupper($model->CURP));
+            $model->FOLIO_ID_OFICIAL = trim(strtoupper($model->FOLIO_ID_OFICIAL));
 
+            $model->NOMBRES2 = trim(strtoupper($model->NOMBRES2));
+            $model->PRIMER_APELLIDO2 = trim(strtoupper($model->PRIMER_APELLIDO2));
+            $model->SEGUNDO_APELLIDO2 = trim(strtoupper($model->SEGUNDO_APELLIDO2));
+            $model->NOMBRE_COMPLETO2 = $model->PRIMER_APELLIDO2.' '.$model->SEGUNDO_APELLIDO2. ' '. $model->NOMBRES2;
+            $model->CURP2 = trim(strtoupper($model->CURP2));
+            $model->FOLIO_ID_OFICIAL2 = trim(strtoupper($model->FOLIO_ID_OFICIAL2));
+
+            $model->NOMBRES_N = trim(strtoupper($model->NOMBRES_N));
+            $model->PRIMER_APELLIDO_N = trim(strtoupper($model->PRIMER_APELLIDO_N));
+            $model->SEGUNDO_APELLIDO_N = trim(strtoupper($model->SEGUNDO_APELLIDO_N));
+            $model->NOMBRE_COMPLETO_N = $model->PRIMER_APELLIDO_N.' '.$model->SEGUNDO_APELLIDO_N. ' '. $model->NOMBRES_N;
+            $model->CURP_N = trim(strtoupper($model->CURP_N));
+
+            $model->NOMBRES_N2 = trim(strtoupper($model->NOMBRES_N2));
+            $model->PRIMER_APELLIDO_N2 = trim(strtoupper($model->PRIMER_APELLIDO_N2));
+            $model->SEGUNDO_APELLIDO_N2 = trim(strtoupper($model->SEGUNDO_APELLIDO_N2));
+            $model->NOMBRE_COMPLETO_N2 = $model->PRIMER_APELLIDO_N2.' '.$model->SEGUNDO_APELLIDO_N2. ' '. $model->NOMBRES_N2;
+            $model->CURP_N2 = trim(strtoupper($model->CURP_N2));
+
+            $model->LOCALIDAD = $localidad->DESC_LOCALIDAD;
+            $model->CVE_ENTIDAD_FEDERATIVA = 15;
+            $model->CVE_REGION = $municipio->REGIONID;
+
+            $model->CALLE = trim(strtoupper($model->CALLE));
+            $model->COLONIA = trim(strtoupper($model->COLONIA));
+            $model->ENTRE_CALLE = trim(strtoupper($model->ENTRE_CALLE));
+            $model->Y_CALLE = trim(strtoupper($model->Y_CALLE));
+            $model->OTRA_REFERENCIA = trim(strtoupper($model->OTRA_REFERENCIA));
 
             $model->USU = $user.'';
+            $model->FECHA_REG = $fecha;
             $model->IP = $ip;
 
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->FOLIO]);
+
+                return $this->redirect(['index']);
             }
 
         }
@@ -107,8 +160,58 @@ class MetadatoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->FOLIO]);
+        if ($model->load(Yii::$app->request->post())) {
+            $request = New Request();
+            $user = Yii::$app->user->id;
+            $ip = $request->getUserIp();
+            $localidad  = Localidades::find()->where(['CVE_LOCALIDAD' => $model->CVE_LOCALIDAD])->one();
+            $municipio = Municipios::find()->where(['MUNICIPIOID' => $model->CVE_MUNICIPIO])->one();
+            $fecha = Yii::$app->formatter->asDatetime('now', 'yyyy-MM-dd H:i:s');
+
+            $model->NOMBRES = trim(strtoupper($model->NOMBRES));
+            $model->PRIMER_APELLIDO = trim(strtoupper($model->PRIMER_APELLIDO));
+            $model->SEGUNDO_APELLIDO = trim(strtoupper($model->SEGUNDO_APELLIDO));
+            $model->NOMBRE_COMPLETO = $model->PRIMER_APELLIDO.' '.$model->SEGUNDO_APELLIDO. ' '. $model->NOMBRES;
+            $model->CURP = trim(strtoupper($model->CURP));
+            $model->FOLIO_ID_OFICIAL = trim(strtoupper($model->FOLIO_ID_OFICIAL));
+
+            $model->NOMBRES2 = trim(strtoupper($model->NOMBRES2));
+            $model->PRIMER_APELLIDO2 = trim(strtoupper($model->PRIMER_APELLIDO2));
+            $model->SEGUNDO_APELLIDO2 = trim(strtoupper($model->SEGUNDO_APELLIDO2));
+            $model->NOMBRE_COMPLETO2 = $model->PRIMER_APELLIDO2.' '.$model->SEGUNDO_APELLIDO2. ' '. $model->NOMBRES2;
+            $model->CURP2 = trim(strtoupper($model->CURP2));
+            $model->FOLIO_ID_OFICIAL2 = trim(strtoupper($model->FOLIO_ID_OFICIAL2));
+
+            $model->NOMBRES_N = trim(strtoupper($model->NOMBRES_N));
+            $model->PRIMER_APELLIDO_N = trim(strtoupper($model->PRIMER_APELLIDO_N));
+            $model->SEGUNDO_APELLIDO_N = trim(strtoupper($model->SEGUNDO_APELLIDO_N));
+            $model->NOMBRE_COMPLETO_N = $model->PRIMER_APELLIDO_N.' '.$model->SEGUNDO_APELLIDO_N. ' '. $model->NOMBRES_N;
+            $model->CURP_N = trim(strtoupper($model->CURP_N));
+
+            $model->NOMBRES_N2 = trim(strtoupper($model->NOMBRES_N2));
+            $model->PRIMER_APELLIDO_N2 = trim(strtoupper($model->PRIMER_APELLIDO_N2));
+            $model->SEGUNDO_APELLIDO_N2 = trim(strtoupper($model->SEGUNDO_APELLIDO_N2));
+            $model->NOMBRE_COMPLETO_N2 = $model->PRIMER_APELLIDO_N2.' '.$model->SEGUNDO_APELLIDO_N2. ' '. $model->NOMBRES_N2;
+            $model->CURP_N2 = trim(strtoupper($model->CURP_N2));
+
+            $model->LOCALIDAD = $localidad->DESC_LOCALIDAD;
+            $model->CVE_ENTIDAD_FEDERATIVA = 15;
+            $model->CVE_REGION = $municipio->REGIONID;
+
+            $model->CALLE = trim(strtoupper($model->CALLE));
+            $model->COLONIA = trim(strtoupper($model->COLONIA));
+            $model->ENTRE_CALLE = trim(strtoupper($model->ENTRE_CALLE));
+            $model->Y_CALLE = trim(strtoupper($model->Y_CALLE));
+            $model->OTRA_REFERENCIA = trim(strtoupper($model->OTRA_REFERENCIA));
+
+            $model->USU_M = $user.'';
+            $model->IP_M = $ip;
+            $model->FECHA_M = $fecha;
+
+            if($model->save()){
+                return $this->redirect(['index']);
+            }
+
         }
 
         return $this->render('update', [

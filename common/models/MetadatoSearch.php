@@ -43,7 +43,10 @@ class MetadatoSearch extends Metadato
     {
         $query = Metadato::find();
 
-        // add conditions that should always apply here
+        if (Yii::$app->user->identity->role == 10 || Yii::$app->user->identity->role == 20){
+            $region = Yii::$app->user->identity->region_id;
+            $query->andWhere(['CVE_REGION' => $region]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -53,7 +56,6 @@ class MetadatoSearch extends Metadato
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            $query->where('N_PERIODO = 2018');
             return $dataProvider;
         }
 
