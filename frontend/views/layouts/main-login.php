@@ -16,8 +16,14 @@ dmstr\web\AdminLteAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <style>
+        body {
+            background-image: url('<?= Yii::$app->homeUrl ?>images/fondonav2.jpg');
+        }
+    </style>
 </head>
-<body class="login-page">
+
+<body>
 
 <?php $this->beginBody() ?>
 

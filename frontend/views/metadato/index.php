@@ -161,7 +161,7 @@ $this->title = 'Participantes';
                         'class' => 'yii\grid\ActionColumn',
                         'header' => 'Acciones',
                         'headerOptions' => ['style' => 'color:#337ab7'],
-                        'template' => '{update}{borrar}}',
+                        'template' => '{update}{borrar}',
                         'buttons' => [
                             'update' => function ($url, $model) {
                                 if(Yii::$app->user->identity->role != 40){
