@@ -50,17 +50,47 @@ $this->title = 'Participantes';
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
 
-                    'N_PERIODO',
+                    //'N_PERIODO',
                     //'CVE_PROGRAMA',
-                    //'FOLIO',
+                    'FOLIO',
                     //'CVE_DEPENDENCIA',
                     //'PRIMER_APELLIDO',
                     //'SEGUNDO_APELLIDO',
                     //'NOMBRES',
                     'NOMBRE_COMPLETO',
+                    'NOMBRE_COMPLETO2',
+                    [
+                        'attribute' => 'CVE_MUNICIPIO',
+                        'value' => function($data){
+                            $role = "";
+                            if($data->CVE_MUNICIPIO == null){
+                                $role = "";
+                            }else {
+                                $reg = \common\models\Municipios::find()->where(['MUNICIPIOID' => $data->CVE_MUNICIPIO])->one();
+                                $role = $reg->MUNICIPIONOMBRE;
+                            }
+
+                            return $role;
+                        },
+                        'filter' => Html::activeDropDownList($searchModel, 'CVE_MUNICIPIO',
+                            \yii\helpers\ArrayHelper::map(\common\models\Municipios::getMunOk(), 'MUNICIPIOID', 'MUNICIPIONOMBRE'),
+                            ['class'=>'form-control','prompt' => 'Seleccione un municipio']),
+                    ],
                     //'FECHA_NACIMIENTO',
                     //'SEXO',
-                    'CURP',
+                    //'CURP',
+                    [
+                        'label' => 'Evento',
+                        'value' => function($data){
+                            if ($data->STATUS_1 == 0){
+                                return 'FIN DE AÑO';
+                            }
+                            else{
+                                return 'REYES MAGOS';
+                            }
+                        }
+
+                    ],
                     //'EDAD',
                     //'FOLIO_ID_OFICIAL',
                     //'PRIMER_APELLIDO2',
