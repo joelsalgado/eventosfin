@@ -127,7 +127,49 @@ $this->title = 'Participantes';
                     //'OTRO1',
                     //'OTRO2',
 
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'header' => 'Acciones',
+                        'headerOptions' => ['style' => 'color:#337ab7'],
+                        'template' => '{update}{borrar}}',
+                        'buttons' => [
+                            'update' => function ($url, $model) {
+                                if(Yii::$app->user->identity->role != 40){
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                        'title' => Yii::t('app', 'editar'),
+                                    ]);}
+                                else{
+                                    return "";
+                                }
+                            },
+
+                            'borrar' => function ($url, $model) {
+                                if(Yii::$app->user->identity->role == 30){
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'data' => [
+                                            'confirm' => 'Estas seguro de borrar a este usuario',
+                                            'method' => 'POST'
+                                        ],
+                                        'title' => Yii::t('app', 'borrar'),
+                                    ]);
+                                }
+                                else {
+                                    return "";
+                                }
+                            }
+
+                        ],
+                        'urlCreator' => function ($action, $model, $key, $index) {
+                            if ($action === 'update') {
+                                $url =Yii::$app->homeUrl.'metadato/update?id='.$model->FOLIO;
+                                return $url;
+                            }
+                            if ($action === 'borrar') {
+                                $url =Yii::$app->homeUrl.'metadato/delete?id='.$model->FOLIO;
+                                return $url;
+                            }
+                        }
+                    ],
                 ],
             ]); ?>
             </div>
