@@ -1,6 +1,6 @@
 <?php
 use yii\widgets\Breadcrumbs;
-use dmstr\widgets\Alert;
+use yii2mod\alert\Alert;
 
 ?>
 <div class="content-wrapper">
@@ -37,7 +37,7 @@ use dmstr\widgets\Alert;
 
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 2.0
+        <b>Elaboro</b> UDITI
     </div>
     <strong>Copyright &copy; 2018 Secretaría de Desarrollo Social.</strong>
 </footer>

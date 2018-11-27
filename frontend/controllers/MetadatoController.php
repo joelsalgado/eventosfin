@@ -139,7 +139,7 @@ class MetadatoController extends Controller
             $model->IP = $ip;
 
             if($model->save()){
-
+                Yii::$app->session->setFlash('success', 'Se guardo correctamente');
                 return $this->redirect(['index']);
             }
 
@@ -209,6 +209,7 @@ class MetadatoController extends Controller
             $model->FECHA_M = $fecha;
 
             if($model->save()){
+                Yii::$app->session->setFlash('success', 'Se actualizo correctamente');
                 return $this->redirect(['index']);
             }
 
