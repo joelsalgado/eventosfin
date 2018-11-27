@@ -10,6 +10,9 @@
                     ['label' => 'Usuarios', 'icon' => 'user', 'url' => ['/user'], 'visible' => $user = (Yii::$app->user->identity->role == 30) ? true : false],
                     ['label' => 'Registro', 'icon' => 'dashboard', 'url' => ['/metadato']],
                     ['label' => 'Iniciar Sesión', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Cerrar Sesión', 'icon' => 'power-off', 'url' => ['/site/logout'],
+                        'template' => '<a href="{url}" data-method="post"><span class="glyphicon glyphicon-off"></span>{label}</a>'
+                    ],
                 ],
             ]
         ) ?>
